@@ -20,12 +20,13 @@
 import UIKit
 import SQLite3
 
-class ShowToDoTableViewController: UITableViewController {
-    
+class ShowToDoTableViewController: UITableViewController{
+
     var db: OpaquePointer?
     var todolist = [ToDoListModel]()
     var inteval = 1.0
     let timeSelector: Selector = #selector(ShowToDoTableViewController.updateTime)
+    var receivedData = [ToDoListModel]()
     
     @IBOutlet weak var currentDayAndDate: UILabel!
     @IBOutlet var toDoListTableView: UITableView!
@@ -68,10 +69,13 @@ class ShowToDoTableViewController: UITableViewController {
        }
     
     func readValues(){
-        
+
         let select = Network()
-        select.selectAction()
+        receivedData = select.selectAction()
         self.toDoListTableView.reloadData()
+        
+        
+       print("값",receivedData)
     }
     
     // MARK: - Table view data source
@@ -90,7 +94,9 @@ class ShowToDoTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ShowListCell", for: indexPath)
 
         let todolists: ToDoListModel
-        todolists = todolist[indexPath.row]
+        todolists = receivedData[indexPath.row]
+        
+        print("1222", todolists)
         
         cell.textLabel?.text = todolists.ucontent
         cell.detailTextLabel?.text = todolists.udate

@@ -9,6 +9,7 @@
 import Foundation
 import SQLite3
 
+
 class Network{
     
     var db: OpaquePointer?
@@ -80,26 +81,36 @@ class Network{
         
     }
     
-    func selectAction(){
+    func selectAction() -> [ToDoListModel]{
+        
+        let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("ToDoListData.sqlite")
+        
+        if sqlite3_open(fileURL.path, &db) != SQLITE_OK{
+            print("error opening database")
+        }
         
         let selectQuery = "SELECT * FROM todolist WHERE udone = 0 ORDER BY udate ASC"
         var stmt: OpaquePointer?
         
         if sqlite3_prepare(db, selectQuery, -1, &stmt, nil) != SQLITE_OK{
+            print("모델2")
             let errmsg = String(cString: sqlite3_errmsg(db)!)
             print("error preparing select: \(errmsg)")
-            return
+            
         }
         
         while (sqlite3_step(stmt) == SQLITE_ROW) {
+            print("모델3")
             let id = sqlite3_column_int(stmt, 0)
             let date = String(cString: sqlite3_column_text(stmt, 1))
             let content = String(cString: sqlite3_column_text(stmt, 2))
             let done = String(cString: sqlite3_column_text(stmt, 3))
+            print("모델4")
             
-            print(id, date, content)
             todolist.append(ToDoListModel(uid: Int(id), udate: String(describing: date), ucontent: String(describing: content), udone: String(describing: done)))
+              print(todolist)
         }
+        return todolist
     }
     
     func insertAction(_ date: String, _ content: String, _ db:OpaquePointer){
