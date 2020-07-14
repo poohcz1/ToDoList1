@@ -87,7 +87,7 @@ class ShowToDoTableViewController: UITableViewController{
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return todolist.count
+        return receivedData.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -95,8 +95,6 @@ class ShowToDoTableViewController: UITableViewController{
 
         let todolists: ToDoListModel
         todolists = receivedData[indexPath.row]
-        
-        print("1222", todolists)
         
         cell.textLabel?.text = todolists.ucontent
         cell.detailTextLabel?.text = todolists.udate
@@ -167,7 +165,7 @@ class ShowToDoTableViewController: UITableViewController{
             let cell = sender as! UITableViewCell
             let indexPath = self.toDoListTableView.indexPath(for: cell)
             let modifyView = segue.destination as! ModifyViewController
-            let item: ToDoListModel = todolist[(indexPath! as NSIndexPath).row]
+            let item: ToDoListModel = receivedData[(indexPath! as NSIndexPath).row]
             
             let uid = Int(item.uid)
             let udate = String(item.udate!)
