@@ -9,13 +9,15 @@
 import Foundation
 
 class ToDoListModel {
-    var sid: Int
-    var sdate: String?
-    var scontent: String?
+    var uid: Int
+    var udate: String?
+    var ucontent: String?
+    var udone: String?
     
-    init(sid: Int, sdate: String?, scontent: String?){
-        self.sid = sid
-        self.sdate = sdate
-        self.scontent = scontent
+    init(uid: Int, udate: String?, ucontent: String?, udone: String?){
+        self.uid = uid
+        self.udate = udate
+        self.ucontent = ucontent
+        self.udone = udone
     }
 }

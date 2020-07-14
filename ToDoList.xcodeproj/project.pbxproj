@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,6 +16,8 @@
 		9593017024BC38F6004F061E /* AddToDoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9593016F24BC38F6004F061E /* AddToDoViewController.swift */; };
 		9593017224BC391C004F061E /* ShowToDoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9593017124BC391C004F061E /* ShowToDoTableViewController.swift */; };
 		9593017524BC4C8F004F061E /* ToDoListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9593017424BC4C8F004F061E /* ToDoListModel.swift */; };
+		9593017924BD5D10004F061E /* ModifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9593017824BD5D10004F061E /* ModifyViewController.swift */; };
+		9593017E24BD6F22004F061E /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9593017D24BD6F22004F061E /* Network.swift */; };
 		FC7FD7508B86E632F78DB3F6 /* Pods_ToDoList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6867D375372F1934B1DCCF1 /* Pods_ToDoList.framework */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +34,8 @@
 		9593016F24BC38F6004F061E /* AddToDoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToDoViewController.swift; sourceTree = "<group>"; };
 		9593017124BC391C004F061E /* ShowToDoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowToDoTableViewController.swift; sourceTree = "<group>"; };
 		9593017424BC4C8F004F061E /* ToDoListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListModel.swift; sourceTree = "<group>"; };
+		9593017824BD5D10004F061E /* ModifyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyViewController.swift; sourceTree = "<group>"; };
+		9593017D24BD6F22004F061E /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		9855AC6AD17530AD85205A6F /* Pods-ToDoList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoList.release.xcconfig"; path = "Target Support Files/Pods-ToDoList/Pods-ToDoList.release.xcconfig"; sourceTree = "<group>"; };
 		F6867D375372F1934B1DCCF1 /* Pods_ToDoList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToDoList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -54,7 +58,6 @@
 				1A02F0BF76B143C514F86FF0 /* Pods-ToDoList.debug.xcconfig */,
 				9855AC6AD17530AD85205A6F /* Pods-ToDoList.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -87,6 +90,7 @@
 		9593015424BC36A6004F061E /* ToDoList */ = {
 			isa = PBXGroup;
 			children = (
+				9593017A24BD6EFE004F061E /* NetWork */,
 				9593017324BC4C78004F061E /* Model */,
 				9593016E24BC38B9004F061E /* Controller */,
 				9593016C24BC3897004F061E /* TableView */,
@@ -113,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				9593016F24BC38F6004F061E /* AddToDoViewController.swift */,
+				9593017824BD5D10004F061E /* ModifyViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -123,6 +128,14 @@
 				9593017424BC4C8F004F061E /* ToDoListModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		9593017A24BD6EFE004F061E /* NetWork */ = {
+			isa = PBXGroup;
+			children = (
+				9593017D24BD6F22004F061E /* Network.swift */,
+			);
+			path = NetWork;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -240,7 +253,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9593017924BD5D10004F061E /* ModifyViewController.swift in Sources */,
 				9593017224BC391C004F061E /* ShowToDoTableViewController.swift in Sources */,
+				9593017E24BD6F22004F061E /* Network.swift in Sources */,
 				9593017524BC4C8F004F061E /* ToDoListModel.swift in Sources */,
 				9593017024BC38F6004F061E /* AddToDoViewController.swift in Sources */,
 				9593015624BC36A6004F061E /* AppDelegate.swift in Sources */,

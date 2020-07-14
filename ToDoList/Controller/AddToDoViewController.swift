@@ -13,7 +13,6 @@ class AddToDoViewController: UIViewController {
 
     var db: OpaquePointer?
     
-    
     /*
      ----
      변수선언
@@ -22,36 +21,33 @@ class AddToDoViewController: UIViewController {
      toDoDate : 시간
      ----
      */
-    @IBOutlet weak var toDo: UITextField!
-    @IBOutlet weak var toDoDay: UITextField!
-    @IBOutlet weak var toDoDate: UITextField!
+ 
+    @IBOutlet weak var currentTime: UILabel!
+    @IBOutlet weak var toMeetTime: UILabel!
+    @IBOutlet weak var toDo: UITextView!
+    
+
+    var inteval = 1.0
+    let timeSelector: Selector = #selector(ShowToDoTableViewController.updateTime)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // SQLite 생성하기
-        let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("ToDoListDataBase.sqlite")
+        let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("ToDoListData.sqlite")
         
         if sqlite3_open(fileURL.path, &db) != SQLITE_OK{
             print("error opening database")
         }
+        
+        Timer.scheduledTimer(timeInterval: inteval, target: self, selector: timeSelector, userInfo: nil, repeats: true)
 
         // Do any additional setup after loading the view.
     }
     
     @IBAction func addActionBtn(_ sender: UIButton) {
-        // Java의 Statement
-        var stmt: OpaquePointer?
-        // 바인딩하기 위한 코드
-        let SQLITE_TRANSIENT = unsafeBitCast(-1, to: sqlite3_destructor_type.self)
-        /*
-         trimmingCharacters = trim
-         date변수에 시간을 넣는코드
-         */
-        let date = toDoDate.text?.trimmingCharacters(in: .whitespacesAndNewlines)
-        /*
-         content변수에 할일을 넣는코드
-         */
+
+        let date = toMeetTime.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         let content = toDo.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         
         // date나 content가 nil값이라면 alert창 띄우는 코드
@@ -63,44 +59,44 @@ class AddToDoViewController: UIViewController {
             
         }else{
             
-            // insert 쿼리 넣기
-            let insertQuery = "INSERT INTO ToDoList(ucontent, udate) VALUES (?, ?)"
-            
-            // 쿼리 실행 준비
-            if sqlite3_prepare(db, insertQuery, -1, &stmt, nil) != SQLITE_OK{
-                let errmsg = String(cString: sqlite3_errmsg(db)!)
-                print("error preparing insert : \(errmsg)")
-                return
-            }
-            
-            //values 값2개 넣기
-            if sqlite3_bind_text(stmt, 1, date, -1, SQLITE_TRANSIENT) != SQLITE_OK{
-                let errmsg = String(cString: sqlite3_errmsg(db)!)
-                print("failure binding date: \(errmsg)")
-                return
-            }
-            
-            if sqlite3_bind_text(stmt, 2, content, -1, SQLITE_TRANSIENT) != SQLITE_OK{
-                let errmsg = String(cString: sqlite3_errmsg(db)!)
-                print("failure binding content: \(errmsg)")
-                return
-            }
-            
-            // 쿼리 실행
-            if sqlite3_step(stmt) != SQLITE_DONE {
-                let errmsg = String(cString: sqlite3_errmsg(db)!)
-                print("Failed Insert Query: \(errmsg)")
-                return
-            }
+            let paramDate = date
+            let paramContent = content
+            let insert = Network()
+            insert.insertAction(paramDate!, paramContent!, db!)
             
             let resultAlert = UIAlertController(title: "결과", message: "입력되었습니다.", preferredStyle: UIAlertController.Style.alert)
-            let okAction = UIAlertAction(title: "네, 알겠습니다.", style: UIAlertAction.Style.default, handler: nil)
+            let okAction = UIAlertAction(title: "네, 알겠습니다.", style: UIAlertAction.Style.default, handler: {ACTION in self.navigationController?.popViewController(animated: true)})
             resultAlert.addAction(okAction)
             present(resultAlert, animated: true, completion: nil)
             
             print("SuccessFully!")
         }
     }
+    
+    @objc func updateTime(){
+        let date = NSDate()
+        let formatter = DateFormatter()
+        
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "yyyy년 MM월 dd일 HH:mm:ss E"
+        currentTime.text = formatter.string(from: date as Date)
+    }
+    
+    
+    @IBAction func actionPickerView(_ sender: UIDatePicker) {
+        
+        let datePickerView = sender
+        let formatter = DateFormatter()
+       
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "yyyy년 MM월 dd일 HH:mm:ss E"
+        
+        toMeetTime.text = formatter.string(from: datePickerView.date)
+        
+    }
+    
+    
+    
     
     /*
     // MARK: - Navigation
