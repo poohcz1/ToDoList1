@@ -18,6 +18,9 @@
 		9593017524BC4C8F004F061E /* ToDoListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9593017424BC4C8F004F061E /* ToDoListModel.swift */; };
 		9593017924BD5D10004F061E /* ModifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9593017824BD5D10004F061E /* ModifyViewController.swift */; };
 		9593017E24BD6F22004F061E /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9593017D24BD6F22004F061E /* Network.swift */; };
+		95DBD10C24BE8D4D00D7ADFB /* DoneTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DBD10B24BE8D4D00D7ADFB /* DoneTableViewController.swift */; };
+		95DBD10E24BE982F00D7ADFB /* DoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DBD10D24BE982F00D7ADFB /* DoneViewController.swift */; };
+		95DBD11324BEC77400D7ADFB /* intro.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 95DBD11224BEC77400D7ADFB /* intro.jpg */; };
 		FC7FD7508B86E632F78DB3F6 /* Pods_ToDoList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6867D375372F1934B1DCCF1 /* Pods_ToDoList.framework */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +39,9 @@
 		9593017424BC4C8F004F061E /* ToDoListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListModel.swift; sourceTree = "<group>"; };
 		9593017824BD5D10004F061E /* ModifyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyViewController.swift; sourceTree = "<group>"; };
 		9593017D24BD6F22004F061E /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		95DBD10B24BE8D4D00D7ADFB /* DoneTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneTableViewController.swift; sourceTree = "<group>"; };
+		95DBD10D24BE982F00D7ADFB /* DoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneViewController.swift; sourceTree = "<group>"; };
+		95DBD11224BEC77400D7ADFB /* intro.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = intro.jpg; sourceTree = "<group>"; };
 		9855AC6AD17530AD85205A6F /* Pods-ToDoList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoList.release.xcconfig"; path = "Target Support Files/Pods-ToDoList/Pods-ToDoList.release.xcconfig"; sourceTree = "<group>"; };
 		F6867D375372F1934B1DCCF1 /* Pods_ToDoList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToDoList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -72,6 +78,7 @@
 		9593014924BC36A6004F061E = {
 			isa = PBXGroup;
 			children = (
+				95DBD10F24BEC68C00D7ADFB /* Image */,
 				9593015424BC36A6004F061E /* ToDoList */,
 				9593015324BC36A6004F061E /* Products */,
 				1F9F01731C91546895A2BC1F /* Pods */,
@@ -109,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				9593017124BC391C004F061E /* ShowToDoTableViewController.swift */,
+				95DBD10B24BE8D4D00D7ADFB /* DoneTableViewController.swift */,
 			);
 			path = TableView;
 			sourceTree = "<group>";
@@ -118,6 +126,7 @@
 			children = (
 				9593016F24BC38F6004F061E /* AddToDoViewController.swift */,
 				9593017824BD5D10004F061E /* ModifyViewController.swift */,
+				95DBD10D24BE982F00D7ADFB /* DoneViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -136,6 +145,14 @@
 				9593017D24BD6F22004F061E /* Network.swift */,
 			);
 			path = NetWork;
+			sourceTree = "<group>";
+		};
+		95DBD10F24BEC68C00D7ADFB /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				95DBD11224BEC77400D7ADFB /* intro.jpg */,
+			);
+			path = Image;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,6 +215,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95DBD11324BEC77400D7ADFB /* intro.jpg in Resources */,
 				9593016524BC36A8004F061E /* LaunchScreen.storyboard in Resources */,
 				9593016224BC36A8004F061E /* Assets.xcassets in Resources */,
 				9593015D24BC36A6004F061E /* Main.storyboard in Resources */,
@@ -255,9 +273,11 @@
 			files = (
 				9593017924BD5D10004F061E /* ModifyViewController.swift in Sources */,
 				9593017224BC391C004F061E /* ShowToDoTableViewController.swift in Sources */,
+				95DBD10C24BE8D4D00D7ADFB /* DoneTableViewController.swift in Sources */,
 				9593017E24BD6F22004F061E /* Network.swift in Sources */,
 				9593017524BC4C8F004F061E /* ToDoListModel.swift in Sources */,
 				9593017024BC38F6004F061E /* AddToDoViewController.swift in Sources */,
+				95DBD10E24BE982F00D7ADFB /* DoneViewController.swift in Sources */,
 				9593015624BC36A6004F061E /* AppDelegate.swift in Sources */,
 				9593015824BC36A6004F061E /* SceneDelegate.swift in Sources */,
 				9593016024BC36A6004F061E /* ToDoList.xcdatamodeld in Sources */,
@@ -320,6 +340,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = LDD56A5RVR;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -343,6 +364,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -380,6 +402,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = LDD56A5RVR;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -396,6 +419,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -407,11 +431,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ToDoList/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ToDoList;
+				PRODUCT_BUNDLE_IDENTIFIER = com.knowcompony;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -425,11 +450,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ToDoList/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ToDoList;
+				PRODUCT_BUNDLE_IDENTIFIER = com.knowcompony;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

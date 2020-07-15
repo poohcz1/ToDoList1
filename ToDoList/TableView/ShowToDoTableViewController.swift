@@ -20,7 +20,7 @@
 import UIKit
 import SQLite3
 
-class ShowToDoTableViewController: UITableViewController{
+class ShowToDoTableViewController: UITableViewController, UIGestureRecognizerDelegate{
 
     var db: OpaquePointer?
     var todolist = [ToDoListModel]()
@@ -39,10 +39,32 @@ class ShowToDoTableViewController: UITableViewController{
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+
+
+// 꾸욱 눌렀을 때 사용하는 코드
+//        let longPressGesture:UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress(longPressGesture:)))
+//        longPressGesture.minimumPressDuration = 2.0 // 1 second press
+//        longPressGesture.delegate = self
+//        self.toDoListTableView.addGestureRecognizer(longPressGesture)
         
-        self.navigationItem.leftBarButtonItem = self.editButtonItem
         opendb()
     }
+/*
+    @objc func handleLongPress(longPressGesture:UILongPressGestureRecognizer){
+        
+        let tableCell = longPressGesture.location(in: self.toDoListTableView)
+        let indexPath = self.toDoListTableView.indexPathForRow(at: tableCell)
+        
+        if indexPath == nil {
+            
+        }else if (longPressGesture.state == UIGestureRecognizer.State.began) {
+            let resultAlert = UIAlertController(title: "알림", message: "일정이 완료되었습니다.", preferredStyle: UIAlertController.Style.alert)
+            let okAction = UIAlertAction(title: "네, 알겠습니다.", style: UIAlertAction.Style.default, handler: nil)
+            resultAlert.addAction(okAction)
+            present(resultAlert, animated: true, completion: nil)
+        }
+    }
+*/
 
     @objc func updateTime(){
         let date = NSDate()
@@ -69,13 +91,10 @@ class ShowToDoTableViewController: UITableViewController{
        }
     
     func readValues(){
-
+        
         let select = Network()
         receivedData = select.selectAction()
         self.toDoListTableView.reloadData()
-        
-        
-       print("값",receivedData)
     }
     
     // MARK: - Table view data source
@@ -91,6 +110,7 @@ class ShowToDoTableViewController: UITableViewController{
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        self.toDoListTableView.reloadData()
         let cell = tableView.dequeueReusableCell(withIdentifier: "ShowListCell", for: indexPath)
 
         let todolists: ToDoListModel
@@ -105,6 +125,7 @@ class ShowToDoTableViewController: UITableViewController{
     
 
     override func viewDidAppear(_ animated: Bool) {
+//        self.toDoListTableView.reloadData()
         readValues()
     }
     
@@ -116,24 +137,29 @@ class ShowToDoTableViewController: UITableViewController{
     }
     */
 
-    /*
+    
     // Override to support editing the table view.
     // 스와이프하였을때 어떤거 할지 적는 코드(삭제, 추가 등)
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            let todolists = todolist[indexPath.row]
-//            let sid = String(todolists.sid)
-            //let update = UpdateToDoViewController()
+            let todolists = receivedData[indexPath.row]
+            let uid = String(todolists.uid)
             
-            todolist.remove(at: (indexPath as NSIndexPath as NSIndexPath).row)
-//            update.updateAction(sid, db!)
+            let resultAlert = UIAlertController(title: "알림", message: "완료되었습니다.", preferredStyle: UIAlertController.Style.alert)
+            let okAction = UIAlertAction(title: "네, 알겠습니다.", style: UIAlertAction.Style.default, handler: nil)
+            resultAlert.addAction(okAction)
+            present(resultAlert, animated: true, completion: nil)
+            
+            let done = Network()
+            receivedData.remove(at: (indexPath as NSIndexPath as NSIndexPath).row)
+            done.doneAction(uid, db!)
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
- */
+ 
     
 
     
@@ -141,11 +167,10 @@ class ShowToDoTableViewController: UITableViewController{
     // rearranging 말 그대로 목록을 재 정렬하는 코드
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
         
-        let todolistToMove = todolist[(fromIndexPath as NSIndexPath).row]
-        todolist.remove(at: (fromIndexPath as NSIndexPath).row)
-        todolist.insert(todolistToMove, at: (to as NSIndexPath).row)
+        let todolistToMove = receivedData[(fromIndexPath as NSIndexPath).row]
+        receivedData.remove(at: (fromIndexPath as NSIndexPath).row)
+        receivedData.insert(todolistToMove, at: (to as NSIndexPath).row)
     }
-    
 
     /*
     // Override to support conditional rearranging of the table view.

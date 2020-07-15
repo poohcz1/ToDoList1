@@ -12,6 +12,7 @@ import SQLite3
 class AddToDoViewController: UIViewController {
 
     var db: OpaquePointer?
+    var preparedView = UIView()
     
     /*
      ----
@@ -21,7 +22,9 @@ class AddToDoViewController: UIViewController {
      toDoDate : 시간
      ----
      */
- 
+
+    @IBOutlet weak var addBtn: NSLayoutConstraint!
+    
     @IBOutlet weak var currentTime: UILabel!
     @IBOutlet weak var toMeetTime: UILabel!
     @IBOutlet weak var toDo: UITextView!
@@ -44,6 +47,40 @@ class AddToDoViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
+    
+
+
+     private func addKeyboardNotification() {
+        
+      NotificationCenter.default.addObserver(self,selector: #selector(keyboardWillShow),name: UIResponder.keyboardWillShowNotification,object: nil)
+        
+      NotificationCenter.default.addObserver(self,selector: #selector(keyboardWillHide),name: UIResponder.keyboardWillHideNotification,object: nil)
+     }
+    
+
+    @objc private func keyboardWillShow(notification: Notification) {
+        self.addBtn.constant = 300
+        
+    }
+    
+    @objc private func keyboardWillHide(notification: Notification) {
+         self.addBtn.constant = 20
+        
+    }
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     @IBAction func addActionBtn(_ sender: UIButton) {
 
@@ -82,6 +119,10 @@ class AddToDoViewController: UIViewController {
         currentTime.text = formatter.string(from: date as Date)
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
+
+          self.view.endEditing(true)
+    }
     
     @IBAction func actionPickerView(_ sender: UIDatePicker) {
         
@@ -92,12 +133,8 @@ class AddToDoViewController: UIViewController {
         formatter.dateFormat = "yyyy년 MM월 dd일 HH:mm:ss E"
         
         toMeetTime.text = formatter.string(from: datePickerView.date)
-        
     }
-    
-    
-    
-    
+
     /*
     // MARK: - Navigation
 

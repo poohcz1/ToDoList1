@@ -17,6 +17,7 @@ class Network{
     
     func deleteAction(_ id: String, _ db:OpaquePointer){
         
+        print("delete id:",id)
         var stmt: OpaquePointer?
         let deleteQuery = "DELETE FROM todolist WHERE uid = ?"
         
@@ -77,8 +78,28 @@ class Network{
         }
     }
     
-    func doneAction(){
+    func doneAction(_ id:String, _ db: OpaquePointer){
+    
+            var stmt: OpaquePointer?
+            let queryString = "UPDATE todolist SET udone = 1 WHERE uid = ?"
+            
+            if sqlite3_prepare(db, queryString, -1, &stmt, nil) != SQLITE_OK{
+                let errmsg = String(cString: sqlite3_errmsg(db)!)
+                print("error preparing update : \(errmsg)")
+                return
+            }
+            
+            if sqlite3_bind_int(stmt, 1, (String(id) as NSString).intValue) != SQLITE_OK{
+                let errmsg = String(cString: sqlite3_errmsg(db)!)
+                print("failure binding id: \(errmsg)")
+                return
+            }
         
+            if sqlite3_step(stmt) != SQLITE_DONE{
+                let errmsg = String(cString: sqlite3_errmsg(db)!)
+                print("failure updating student: \(errmsg)")
+                return
+            }
     }
     
     func selectAction() -> [ToDoListModel]{
@@ -148,5 +169,33 @@ class Network{
             print("Failed Insert Query: \(errmsg)")
             return
         }
+    }
+    
+    func doneSelectAction() -> [ToDoListModel]{
+        
+        let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("ToDoListData.sqlite")
+        
+        if sqlite3_open(fileURL.path, &db) != SQLITE_OK{
+            print("error opening database")
+        }
+        
+        let doneSelectQuery = "SELECT * FROM todolist WHERE udone = 1 ORDER BY udate DESC"
+        var stmt: OpaquePointer?
+        
+        if sqlite3_prepare(db, doneSelectQuery, -1, &stmt, nil) != SQLITE_OK{
+            let errmsg = String(cString: sqlite3_errmsg(db)!)
+            print("error preparing select: \(errmsg)")
+        }
+        
+        while (sqlite3_step(stmt) == SQLITE_ROW) {
+            let id = sqlite3_column_int(stmt, 0)
+            let date = String(cString: sqlite3_column_text(stmt, 1))
+            let content = String(cString: sqlite3_column_text(stmt, 2))
+            let finishedlist = String(cString: sqlite3_column_text(stmt, 3))
+            
+            print(id, date, content, finishedlist)
+            todolist.append(ToDoListModel(uid: Int(id), udate: String(describing: date), ucontent: String(describing: content), udone: String(describing: finishedlist)))
+        }
+        return todolist
     }
 }
